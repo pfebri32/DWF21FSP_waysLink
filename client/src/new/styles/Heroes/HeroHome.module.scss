@@ -1,0 +1,104 @@
+.hero {
+  background-color: #ff9f00;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+.elementRoundA,
+.elementRoundB {
+  border-radius: 50%;
+  position: absolute;
+}
+
+.elementRoundA {
+  background-color: #ffd48c;
+  height: 256px;
+  width: 256px;
+
+  top: 15px;
+  right: -128px;
+}
+
+.elementRoundB {
+  background-color: #ff9f00;
+  height: 400px;
+  width: 400px;
+
+  bottom: -200px;
+  left: -200px;
+}
+
+.elementA {
+  background-color: rgba($color: #fff, $alpha: 0.1);
+  border-radius: 100% 0 0 0;
+  height: 600px;
+  width: 1200px;
+  position: absolute;
+
+  bottom: -200px;
+  right: 0;
+}
+
+.elementB {
+  background-color: rgba($color: #ffb73f, $alpha: 0.4);
+  border-radius: 0 100% 0 0;
+  height: 1200px;
+  width: 600px;
+  position: absolute;
+  transform: rotate(-45deg);
+  bottom: -400px;
+  left: -150px;
+}
+
+.left,
+.right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.left {
+  color: #fff;
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: 900;
+  line-height: 3.5rem;
+  margin-bottom: 15px;
+}
+
+.description {
+  font-size: 1.125rem;
+}
+
+.button {
+  background-color: #000000;
+  font-size: 1.125rem;
+  margin-top: 30px;
+  min-width: 120px;
+  padding: 10px 30px;
+  width: fit-content;
+}
+
+.heroImage {
+  padding: 0 15px;
+  position: relative;
+
+  .phoneImage {
+    max-height: 360px;
+    position: absolute;
+    z-index: 1;
+
+    bottom: -15px;
+    left: -75px;
+  }
+
+  img {
+    max-height: 100%;
+    max-width: 100%;
+  }
+}

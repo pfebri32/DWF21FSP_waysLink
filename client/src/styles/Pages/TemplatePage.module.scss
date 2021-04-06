@@ -1,0 +1,14 @@
+.container {
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+
+    .template {
+      max-height: 400px;
+
+      img {
+        height: 100%;
+      }
+    }
+  }
+}

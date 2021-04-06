@@ -1,0 +1,43 @@
+.navbar {
+  background-color: #f4f4f4;
+  padding: 15px 0;
+}
+
+.navlist {
+  align-items: center;
+  display: flex;
+  margin-left: auto;
+  padding: 0 15px;
+
+  a,
+  div {
+    &:not(:first-child) {
+      margin-left: 15px;
+    }
+  }
+}
+
+.login {
+  background: none;
+  border: solid 2px #ff9f00;
+  color: #000;
+}
+
+.navlink {
+  min-width: 120px;
+}
+
+.logo {
+  align-items: center;
+  display: flex;
+  padding: 0 15px;
+
+  a {
+    display: flex;
+
+    img {
+      max-height: 100%;
+      max-width: 100%;
+    }
+  }
+}

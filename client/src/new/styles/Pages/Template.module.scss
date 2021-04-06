@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 15px;
+}
+
+.template {
+  display: block;
+  width: 20%;
+
+  img {
+    margin-bottom: 15px;
+    max-width: 100%;
+  }
+}

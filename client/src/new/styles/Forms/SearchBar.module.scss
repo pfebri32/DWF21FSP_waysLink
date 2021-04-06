@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+}
+
+.search {
+  align-items: center;
+  border-bottom: 2px solid #7e7a7a;
+  display: flex;
+  flex: 1;
+
+  input {
+    border: none;
+    flex: 1;
+    padding: 0 15px 0 10px;
+  }
+}
+
+.button {
+  margin-left: 15px;
+  min-width: 120px;
+  padding: 5px 15px;
+}

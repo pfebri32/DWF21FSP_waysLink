@@ -1,0 +1,70 @@
+.container {
+  padding: 60px 0;
+}
+
+.head {
+  text-align: center;
+}
+
+.link {
+  background-color: gray;
+  border-radius: 10px;
+  color: #fff;
+  display: block;
+  margin-top: 30px;
+  padding: 10px 15px;
+
+  &:hover {
+    color: #fff;
+    text-decoration: none;
+  }
+}
+
+.linkTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  padding: 0 15px;
+}
+
+.row {
+  align-items: center;
+  display: flex;
+  margin: 0 -15px;
+}
+
+.iconContainer {
+  padding: 0 15px;
+}
+
+.icon {
+  border-radius: 50%;
+  height: 60px;
+  width: 60px;
+  overflow: hidden;
+
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-top: 15px;
+}
+
+.image {
+  border-radius: 50%;
+  height: 160px;
+  width: 160px;
+  margin: auto;
+  overflow: hidden;
+
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+}

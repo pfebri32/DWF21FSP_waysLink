@@ -1,0 +1,45 @@
+.modalContent {
+  border-radius: 10px;
+}
+
+.modalDialog {
+  max-width: 420px;
+}
+
+.container {
+  padding: 45px 45px 30px 45px;
+}
+
+.header {
+  font-size: 1.825rem;
+  font-weight: 800;
+  margin-bottom: 30px;
+}
+
+.submit {
+  font-size: 1.125rem;
+  margin-top: 30px;
+}
+
+.switch {
+  color: #333;
+  cursor: pointer;
+  font-size: 1.125rem;
+  margin: auto;
+  margin-top: 15px;
+  width: fit-content;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  span {
+    font-weight: 700;
+  }
+}
+
+.group {
+  &:not(:first-child) {
+    margin-top: 20px;
+  }
+}

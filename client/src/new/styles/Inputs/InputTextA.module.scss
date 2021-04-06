@@ -1,0 +1,23 @@
+.group {
+  display: flex;
+  flex-direction: column;
+
+  &:not(:first-child) {
+    margin-top: 20px;
+  }
+
+  label {
+    color: #333;
+    font-weight: 600;
+  }
+
+  input {
+    border: none;
+    border-bottom: 2px solid #000;
+    padding: 10px 0 5px 0;
+
+    &:disabled {
+      padding: 10px 15px 5px 15px;
+    }
+  }
+}

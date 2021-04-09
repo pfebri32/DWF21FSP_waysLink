@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
 // Components.
-import DashboardHeader from './../components/Headers/DashboardHeader';
+import DashboardHeader from '../components/Headers/DashboardHeader';
 import SearchBar from '../components/Forms/SearchBar';
 import LinkList from '../components/List/LinkList';
 
 // Configs.
-import { API } from '../../config/api';
+import { API } from '../config/api';
 
 // Styles.
 import styles from '../styles/Pages/MyLink.module.scss';

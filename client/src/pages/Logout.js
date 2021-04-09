@@ -5,6 +5,7 @@ import { Redirect } from 'react-router-dom';
 import { UserContext } from '../contexts/userContext';
 
 const Logout = () => {
+  // eslint-disable-next-line
   const [state, dispatch] = useContext(UserContext);
   dispatch({ type: 'LOGOUT' });
   return <Redirect to="/" />;

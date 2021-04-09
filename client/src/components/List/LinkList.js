@@ -16,7 +16,7 @@ const LinkList = ({ title, link, img, views, className, onDelete, id }) => {
       <div className={styles.row}>
         <div className={styles.imageContainer}>
           <div className={styles.image}>
-            <img src={img ? img : defaultImage} />
+            <img src={img ? img : defaultImage} alt="default" />
           </div>
         </div>
         <div className={styles.content}>

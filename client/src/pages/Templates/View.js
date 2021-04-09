@@ -3,7 +3,7 @@ import { Container } from 'react-bootstrap';
 import { useParams } from 'react-router';
 
 // Configs.
-import { API } from '../../../config/api';
+import { API } from '../../config/api';
 
 // Components.
 import TemplateA from './Views/TemplateA';

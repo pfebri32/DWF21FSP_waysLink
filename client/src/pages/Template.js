@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import DashboardHeader from '../components/Headers/DashboardHeader';
 
 // Configs.
-import { API } from '../../config/api';
+import { API } from '../config/api';
 
 // Styles.
 import styles from '../styles/Pages/Template.module.scss';

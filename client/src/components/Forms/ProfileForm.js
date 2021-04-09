@@ -2,14 +2,14 @@ import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router';
 
 // Contexts.
-import { UserContext } from '../../../contexts/userContext';
+import { UserContext } from '../../contexts/userContext';
 
 // Components.
 import InputTextA from '../Inputs/InputTextA';
 import SimpleButton from '../Buttons/SimpleButton';
 
 // Configs.
-import { API } from '../../../config/api';
+import { API } from '../../config/api';
 
 // Styles.
 import styles from '../../styles/Forms/ProfileForm.module.scss';

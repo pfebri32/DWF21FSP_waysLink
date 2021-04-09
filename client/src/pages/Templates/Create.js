@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router';
 
 // Configs.
-import { API } from '../../../config/api';
+import { API } from '../../config/api';
 
 // Components.
 import DashboardHeader from '../../components/Headers/DashboardHeader';
@@ -21,12 +21,10 @@ const Create = () => {
 
   // States.
   const [loading, setLoading] = useState(true);
-  const [template, setTemplate] = useState(null);
+  const [template, setTemplate] = useState();
 
   // Form states.
   const [form, setForm] = useState({
-    isChange: false,
-    isImageChange: false,
     title: '',
     description: '',
     img: null,
@@ -34,33 +32,10 @@ const Create = () => {
   });
 
   // Queries.
-  const getContentAndTemplate = async () => {
+  const getTemplate = async () => {
     try {
-      const res = await API.get(`/content/${id}`);
-      const { data } = res.data;
-
-      const links = data.content.links.map(({ title, link, img, id }) => {
-        return {
-          isChange: false,
-          isImageChange: false,
-          isNew: false,
-          title,
-          link,
-          img,
-          id,
-        };
-      });
-
-      const template = await API.get(`/template/${data.content.templateId}`);
-
-      setForm({
-        ...form,
-        title: data.content.title,
-        description: data.content.description,
-        img: data.content.img,
-        links: links,
-      });
-      setTemplate(template.data.data.template);
+      const res = await API.get(`/template/${id}`);
+      setTemplate(res.data.data.template);
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -69,7 +44,7 @@ const Create = () => {
   };
 
   useEffect(() => {
-    getContentAndTemplate();
+    getTemplate();
   }, []);
 
   // Handlers.
@@ -79,8 +54,6 @@ const Create = () => {
       links: [
         ...form.links,
         {
-          isChange: false,
-          isNew: true,
           title: '',
           link: '',
           img: null,
@@ -92,9 +65,6 @@ const Create = () => {
   const handleChange = (e) => {
     setForm({
       ...form,
-      isChange: true,
-      isImageChange:
-        form.isImageChange === false ? e.target.type === 'file' : true,
       [e.target.name]:
         e.target.type !== 'file' ? e.target.value : e.target.files[0],
     });
@@ -109,11 +79,6 @@ const Create = () => {
         ...form.links.slice(0, index),
         {
           ...form.links[index],
-          isChange: true,
-          isImageChange:
-            form.links[index].isImageChange === false
-              ? e.target.type === 'file'
-              : true,
           [e.target.name]:
             e.target.type !== 'file' ? e.target.value : e.target.files[0],
         },
@@ -127,27 +92,22 @@ const Create = () => {
       const body = new FormData();
       const config = { headers: { 'Content-Type': 'multipart/form-data' } };
 
-      const links = form.links.map(
-        ({ title, link, isChange, isImageChange, id }) => {
-          return { title, link, isChange, isImageChange, id };
-        }
-      );
+      const links = form.links.map(({ title, link }) => {
+        return { title, link };
+      });
 
       for (let i = 0; i < form.links.length; i++) {
-        if (form.links[i].isImageChange) {
-          body.append('imgLinks', form.links[i].img);
-          if (form.links[i].img) body.append('imgIndex', i);
-        }
+        body.append('imgLinks', form.links[i].img);
+        if (form.links[i].img) body.append('imgIndex', i);
       }
 
-      body.append('isChange', form.isChange);
-      body.append('isImageChange', form.isImageChange);
       body.append('title', form.title);
       body.append('description', form.description);
       body.append('img', form.img);
+      body.append('templateId', id);
       body.append('links', JSON.stringify(links));
 
-      await API.patch(`/content/${id}`, body, config);
+      await API.post('/content', body, config);
       history.push('/dashboard/my-link');
     } catch (error) {
       console.log(error);
@@ -164,20 +124,20 @@ const Create = () => {
         link={link.link}
         index={i}
         img={link.img}
-        isChange={link.isImageChange}
+        local
         onChange={handleLinkChange}
       />
     ));
   return (
     <>
       <DashboardHeader title="Template" />
-      <div className="dashboard-container">
+      <div className={`dashboard-container ${styles.dashboardContainer}`}>
         {!loading ? (
           <>
             <div className={styles.head}>
-              <div className={styles.header}>Edit Link</div>
+              <div className={styles.header}>Create Link</div>
               <SimpleButton
-                title="Update Link"
+                title="Publish Link"
                 className={`${styles.publish} primary-button-color`}
                 onClick={handleSubmit}
               />
@@ -190,11 +150,11 @@ const Create = () => {
                       <label className={styles.image}>
                         <img
                           src={
-                            form.isImageChange
+                            form.img
                               ? URL.createObjectURL(form.img)
-                              : form.img
+                              : defaultImage
                           }
-                          alt="phone template"
+                          alt="file"
                         />
                         <input
                           name="img"
@@ -225,11 +185,11 @@ const Create = () => {
                   </div>
                   <div className={styles.subform}>
                     {renderLinkForms()}
-                    {/* <SimpleButton
+                    <SimpleButton
                       title="Add New Link"
                       className="primary-button-color"
                       onClick={handleAddLink}
-                    /> */}
+                    />
                   </div>
                 </form>
               </div>

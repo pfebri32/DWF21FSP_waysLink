@@ -1,8 +1,9 @@
 import React, { useContext, useState } from 'react';
 import { Modal } from 'react-bootstrap';
+import { Redirect } from 'react-router';
 
 // Contexts.
-import { UserContext } from '../../contexts/userContext';
+import { UserContext } from '../contexts/userContext';
 
 // Components.
 import Navbar from '../components/Navs/Navbar';
@@ -11,11 +12,10 @@ import AuthForm from '../components/Forms/AuthForm';
 
 // Styles.
 import authFormStyles from '../styles/Forms/AuthForm.module.scss';
-import { Redirect } from 'react-router';
 
 const Home = () => {
   // Contexts.
-  const [state, dispatch] = useContext(UserContext);
+  const [state] = useContext(UserContext);
 
   // Auth form.
   const [hasAccount, setHasAccount] = useState(false);

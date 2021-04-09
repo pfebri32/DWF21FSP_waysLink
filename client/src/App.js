@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
@@ -6,27 +6,28 @@ import './App.css';
 // Contexts.
 import { UserContext } from './contexts/userContext';
 
-// Pages.
-import LandingPage from './pages/LandingPage';
-import TemplatePage from './pages/Templates/TemplatePage';
-import ProfilePage from './pages/ProfilePage';
-import MyLinkPage from './pages/MyLinkPage';
-import TemplateView from './pages/Templates/TemplateView';
-import Logout from './pages/Logout';
-
-// Components.
-import DashboardLayout from './components/Layouts/DashboardLayout';
-
 // Configs.
 import { setAuthToken, API } from './config/api';
-import CreateTemplateContent from './pages/Templates/CreateTemplateContent';
+
+// Layouts.
+import DashboardLayout from './components/Layouts/DashboardLayout';
+
+// Pages.
+import Home from './pages/Home';
+import Template from './pages/Template';
+import TemplateContentCreate from './pages/Templates/Create';
+import TemplateContentEdit from './pages/Templates/Edit';
+import MyLink from './pages/MyLink';
+import Profile from './pages/Profile';
+import Logout from './pages/Logout';
+import TemplateView from './pages/Templates/View';
 
 // Set token.
 if (localStorage.token) {
   setAuthToken(localStorage.token);
 }
 
-function App() {
+const App = () => {
   // Contexts.
   const [state, dispatch] = useContext(UserContext);
 
@@ -37,7 +38,6 @@ function App() {
   const validate = async () => {
     try {
       const res = await API.get('/validate');
-
       dispatch({
         type: 'VALID',
         payloads: {
@@ -58,50 +58,49 @@ function App() {
   }, []);
 
   return (
-    <>
-      {!loading && (
-        <div className="App">
-          <BrowserRouter>
-            <Switch>
-              <Route path="/" component={LandingPage} exact />
+    <div className="App">
+      {!loading ? (
+        <BrowserRouter>
+          <Switch>
+            <Route path="/" component={Home} exact />
+            <Route path="/logout" component={Logout} exact />
+            <Route path="/view/:link" component={TemplateView} exact />
+            <Route path="/dashboard">
               {state.isLogin ? (
-                <Route path="/dashboard">
-                  <DashboardLayout>
-                    <Switch>
-                      <Route
-                        path="/dashboard/template"
-                        component={TemplatePage}
-                        exact
-                      />
-                      <Route
-                        path="/dashboard/profile"
-                        component={ProfilePage}
-                        exact
-                      />
-                      <Route
-                        path="/dashboard/my-link"
-                        component={MyLinkPage}
-                        exact
-                      />
-                      <Route
-                        path="/dashboard/template/create/:id"
-                        component={CreateTemplateContent}
-                        exact
-                      />
-                    </Switch>
-                  </DashboardLayout>
-                </Route>
+                <DashboardLayout>
+                  <Switch>
+                    <Route
+                      path={['/dashboard', '/dashboard/template']}
+                      component={Template}
+                      exact
+                    />
+                    <Route
+                      path="/dashboard/profile"
+                      component={Profile}
+                      exact
+                    />
+                    <Route path="/dashboard/my-link" component={MyLink} exact />
+                    <Route
+                      path="/dashboard/template/create/:id"
+                      component={TemplateContentCreate}
+                      exact
+                    />
+                    <Route
+                      path="/dashboard/template/edit/:id"
+                      component={TemplateContentEdit}
+                      exact
+                    />
+                  </Switch>
+                </DashboardLayout>
               ) : (
                 <Redirect to="/" />
               )}
-              <Route path="/view/:id" component={TemplateView} exact />
-              <Route path="/logout" component={Logout} exact />
-            </Switch>
-          </BrowserRouter>
-        </div>
-      )}
-    </>
+            </Route>
+          </Switch>
+        </BrowserRouter>
+      ) : null}
+    </div>
   );
-}
+};
 
 export default App;

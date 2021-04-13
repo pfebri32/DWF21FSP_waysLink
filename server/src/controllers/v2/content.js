@@ -104,18 +104,27 @@ exports.addContent = async (req, res) => {
 // Req. Auth middleware.
 exports.getContentsSelf = async (req, res) => {
   try {
-    const { user } = req;
+    // Initials.
+    const { user, query } = req;
+    const option = {
+      where: { userId: user.id },
+    };
+
+    if (query.limit) {
+      option.limit = parseInt(query.limit);
+      if (query.page) {
+        option.offset = (parseInt(query.page) - 1) * parseInt(query.limit);
+      }
+    }
 
     // Get all contents.
-    const contents = await TemplateContent.findAll({
-      where: { userId: user.id },
-    });
+    const contents = await TemplateContent.findAndCountAll(option);
 
     // Refactor.
-    for (let i = 0; i < contents.length; i++) {
-      if (contents[i].dataValues['img']) {
-        contents[i].dataValues['img'] =
-          process.env.UPLOADS_URL + contents[i].dataValues['img'];
+    for (let i = 0; i < contents.rows.length; i++) {
+      if (contents.rows[i].dataValues['img']) {
+        contents.rows[i].dataValues['img'] =
+          process.env.UPLOADS_URL + contents.rows[i].dataValues['img'];
       }
     }
 
@@ -292,7 +301,7 @@ exports.getContentByLink = async (req, res) => {
         },
       ],
       where: { uniqueLink: params.link },
-      attributes: ['title', 'description', 'img', 'id', 'views'],
+      attributes: ['title', 'description', 'img', 'id', 'views', 'templateId'],
     });
 
     if (!content) {

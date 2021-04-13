@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Template.belongsTo(models.User, {
         as: 'user',
+        foreignKey: 'userId',
       });
       Template.hasMany(models.TemplateContent, {
         as: 'contents',
